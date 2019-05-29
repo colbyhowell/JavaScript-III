@@ -194,3 +194,19 @@ Humanoid.prototype.greet = function(){
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
 
 
+function Heroes(hero){
+  Humanoid.call(this, hero)
+}
+
+function Villains(evil){
+  Humanoid.call(this, evil)
+}
+
+Heroes.prototype = Object.create(Humanoid.prototype)
+Villains.prototype = Object.create(Humanoid.prototype)
+
+
+function getHit(damage){
+  var newHealth = healthPoints - damage
+  console.log(newHealth)
+}
