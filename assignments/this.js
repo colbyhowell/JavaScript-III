@@ -13,16 +13,65 @@
 
 // code example for Window Binding
 
+function sayHello(hello){
+    console.log(this)
+    return `Say ${hello}`
+}
 
+sayHello("hello")
 
 // Principle 2
 
 // code example for Implicit Binding
 
+const whoMe = {
+    shoesize: 16,
+    bigFeet: function(name){
+        console.log(`${name} has big feet with a size ${this.shoesize}`)
+    }
+}
+
+whoMe.bigFeet("Colby")
+
+
 // Principle 3
 
 // code example for New Binding
 
+function NewShoes(feet){
+    this.size = feet.shoeSizeNew,
+    this.width = feet.shoeWidth,
+    this.type = feet.shoeType
+    console.log(this)
+}
+
+const newShoe1 = new NewShoes({
+    shoeSizeNew: 16,
+    shoeWidth: "4E",
+    shoeType: "Running"
+})
+
+console.log(newShoe1)
+
+
 // Principle 4
 
 // code example for Explicit Binding
+
+
+function WhoDat(saints){
+    this.person = saints,
+    this.phrase = " says Who Dat say dey gonna beat dem Saints?!"
+    this.speak = function(){
+        console.log(this.person + this.phrase)
+    }
+}
+
+const colby = new WhoDat("Colby")
+const frank = new WhoDat("Frank")
+
+colby.speak()
+frank.speak()
+
+colby.speak.call(frank)
+frank.speak.call(colby)
