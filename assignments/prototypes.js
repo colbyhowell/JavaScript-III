@@ -1,3 +1,49 @@
+// function hello(name) {
+//   "use strict"
+//   return `Hello ${this.name}`
+// }
+
+// console.log(hello("Colby"))
+
+
+// const hobbit = {
+//   name: "Samwise",
+//   age: 32,
+//   food: "taters",
+//   cook: function(){
+//     return `${this.name} loves to cook ${this.food}`
+//   }
+// }
+
+// console.log(hobbit.cook())
+
+// const person =  {
+//   "name":"Ruby"
+// }
+
+// function introduction(html, css, js){
+//   return `Hello, my name is ${person.name} and I like to program in: ${html}, ${css}, and ${js}`
+// }
+
+// const skills = ["HTML", "CSS", "JS"]
+
+// console.log(introduction.call(person, "HTML", "CSS", "JS"))
+// // so the first arugment is the call for the object it's pulling from
+
+// console.log(introduction.apply(person,skills))
+// // it can pass an array through as the items
+
+// //                                   this
+// console.log(introduction.call(person,...skills))
+// // you can stop using the apply if you use the spread 
+
+
+// const useLater = (introduction.bind(person,...skills))
+// // you can save/bind a this item to use later
+
+// console.log(useLater())
+
+
 /*
   Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing several constructor functions with their correct inheritance hierarchy.
 
@@ -39,9 +85,48 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+
+
+function GameObject(attr){
+  this.createdAt = attr.createdAt,
+  this.name = attr.name,
+  this.dimensions = attr.dimensions
+}
+
+  GameObject.prototype.destroy = function(){
+    return `${this.name} was removed from the game`
+  }
+
+
+function CharacterStats(attributes){
+  GameObject.call(this, attributes),
+  this.healthPoints = attributes.healthPoints
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype)
+
+CharacterStats.prototype.takeDamage = function(){
+    return `${this.name} took damage`
+}
+
+function Humanoid(humans){
+  CharacterStats.call(this, humans),
+  GameObject.call(this, humans),
+  this.team = humans.team,
+  this.weapons = humans.weapons,
+  this.language = humans.language
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype)
+
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}`
+}
+
+
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +187,10 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+
